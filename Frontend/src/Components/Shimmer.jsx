@@ -3,7 +3,7 @@ import "./css/Shimmer.css";
 function Shimmer() {
   return (
     <>
-      <div className="Scard ml-5 mt-12 overflow-hidden w-full  flex flex-col items-start gap-1 rounded-2xl">
+      <div className="Scard mt-12 overflow-hidden w-full  flex flex-col items-start gap-1 rounded-2xl">
         <div className="Sbanner relative w-full aspect-[2/1.5] sm:aspect-[1.2/0.7] lg:aspect-[1.8/1.1]  overflow-hidden rounded-2xl bg-[#bdbcbc]">
           <div className="Simg w-full h-full absolute rounded-2xl bg-[#bdbcbc]"></div>
         </div>

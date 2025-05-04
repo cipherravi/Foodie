@@ -14,7 +14,7 @@ function CardSection() {
   };
   //class of tailwind for styling----
   const filterStyle =
-    "py-2 select-none  cursor-pointer text-[#02060CBF] font-gilroy-medium text-center sm:text-start";
+    "py-2 px-3 select-none  cursor-pointer  text-[#02060CBF] font-gilroy-medium text-center sm:text-start rounded-2xl border border-[rgba(2,6,12,0.15)]  ";
   return (
     <>
       <div className="mainContainer w-full min-h-full flex justify-center mt-7">
@@ -24,23 +24,22 @@ function CardSection() {
               Restaurants with online food delivery in Patna
             </h1>
           </div>
-          <div className="filtersContainer  gap-3 text-[#02060CBF] font-gilroy-medium text-sm flex   p-2">
-            <div className="border rounded-3xl p-1">
+          <div className="filtersContainer  text-[#02060CBF] font-gilroy-medium text-sm ">
+            <div className=" flex flex-wrap gap-5 p-1">
               <div
-                className={`${filterStyle} ${IsActive ? "" : ""}`}
+                className={`${filterStyle}  flex items-center gap-2 w-max ${
+                  IsActive ? "" : ""
+                }`}
                 onClick={filterHandler}
               >
-                Delivery Time
+                <div>Filter</div> <i class="fa-solid fa-filter"></i>
               </div>
-            </div>
-            <div className="border rounded-3xl p-1">
-              <div className={`${filterStyle}`}>Ratings 4.0+</div>
-            </div>
-            <div className="border rounded-3xl p-1">
-              <div className={`${filterStyle}`}>Low Cost</div>
-            </div>
-            <div className="border rounded-3xl p-1">
-              <div className={`${filterStyle}`}>High Cost</div>
+
+              <div className={`${filterStyle}  flex items-center gap-2 w-max`}>
+                <div>Sort By</div> <i class="fa-solid fa-caret-down "></i>
+              </div>
+
+              <div className={`${filterStyle}`}>Pure Veg</div>
             </div>
           </div>
           <div className="cardsContainer">
