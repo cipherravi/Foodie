@@ -29,7 +29,7 @@ function NavLinks() {
     "flex items-center justify-center gap-2 no-underline list-none font-proxima-nova-regular text-base leading-5 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-95 hover:text-[#b80000]  responsive **start //area    //mar-pad //visuals lg:gap-2  end**";
   return (
     <>
-      <ul className=" nav-list hidden  sm:flex h-7 justify-center items-center gap-14   lg:h-7   lg:gap-14 ">
+      <ul className=" nav-list hidden sm:flex  h-7 justify-center items-center gap-14   lg:h-7   lg:gap-14 ">
         <li className={`${commonLi} search-box`}>
           <span>
             <i className="fa-solid fa-magnifying-glass text-lg"></i>

@@ -31,26 +31,25 @@ function RestrauntCards({
 
   //tailwind css custom classes
   const offer =
-    "offer absolute left-0 bottom-0 text-start pt-0 pr-3 pb-2 pl-3 text-[rgba(255,255,255,0.92)]  text-xl leading-6 tracking-[-0.5px] font-extrabold  text-nowrap overflow-hidden text-ellipsis uppercase font-proxima-nova";
+    "offer absolute left-0 bottom-0 text-start pt-0 pr-3 pb-2 pl-3 text-[rgba(255,255,255,0.92)]  text-sm sm:text-base lg:txt-lg leading-6 tracking-[-0.5px] font-extrabold  text-nowrap overflow-hidden text-ellipsis uppercase font-proxima-nova";
 
   return (
     <>
       <div
-        className="card text-[#02060ceb] m-3 overflow-hidden h-72 w-60 flex flex-col items-start gap-1 cursor-pointer border-none"
+        className="card mt-4  flex flex-col items-center  cursor-pointer border-none   max-w-xs transition-transform hover:scale-[1.02]"
         onClick={handleMenu}
       >
-        <div className="banner w-60 h-40 relative overflow-hidden rounded-2xl ">
+        {/* Image Banner */}
+        <div className="relative w-full aspect-[2/1.5] sm:aspect-[1.2/0.7] lg:aspect-[1.8/1.1]  overflow-hidden rounded-2xl">
           <img
             src={IMG_URL}
-            style={{ height: url + cloudinaryImageId ? "" : "0px" }}
-            alt=""
-            className="w-full h-full object-cover object-center "
+            alt={name}
+            className="w-full h-full object-cover object-center"
           />
-          <div className="offer-textbox absolute left-0 bottom-0 w-full h-2/5">
+          <div className="offer-textbox absolute left-0 bottom-0 w-full h-2/5 bg-gradient-to-t from-black/70 to-transparent px-3 pb-2 pt-0">
             {hasDiscountInfo ? (
               <span className={`${offer}`}>
-                {`${aggregatedDiscountInfoV3?.header}  
-              ${aggregatedDiscountInfoV3?.subHeader}`}
+                {`${aggregatedDiscountInfoV3?.header} ${aggregatedDiscountInfoV3?.subHeader}`}
               </span>
             ) : (
               <span className={`${offer}`}>
@@ -59,22 +58,25 @@ function RestrauntCards({
             )}
           </div>
         </div>
-        <div className="info p-3">
-          <div className="name font-gilroy-bold text-lg w-56 whitespace-nowrap overflow-hidden text-ellipsis">
+
+        {/* Info Section */}
+        <div className="info px-2 flex flex-col gap-1 w-full min-w-0">
+          <div className="name font-gilroy-bold text-lg truncate w-full">
             <span>{name}</span>
           </div>
-          <div className="rating-duration font-gilroy-medium flex justify-start items-center gap-1">
+
+          <div className="rating-duration font-gilroy-medium flex items-center gap-1 text-sm">
+            <i className="fa-regular fa-star inline-flex items-center justify-center text-xs w-4 h-4 text-white bg-green-600 rounded-full"></i>
             <span>
-              <i className="fa-regular fa-star inline-flex items-center justify-center text-sm w-4 h-4 text-white bg-green-600 rounded-full mb-1"></i>
+              {avgRating} • {sla?.slaString}
             </span>
-            <span>{avgRating} • </span>
-            <span>{sla?.slaString} </span>
           </div>
 
-          <div className="cuisine text-[#02060c99] font-gilroy-medium h-5 w-56 whitespace-nowrap overflow-hidden text-ellipsis">
+          <div className="cuisine text-[#02060c99] font-gilroy-medium text-sm truncate w-full">
             <span>{cuisines.join(", ")}</span>
           </div>
-          <div className="location  text-[#02060c99] font-gilroy-medium h-5 w-48 whitespace-nowrap overflow-hidden text-ellipsis">
+
+          <div className="location text-[#02060c99] font-gilroy-medium text-sm truncate w-full">
             <span>{areaName}</span>
           </div>
         </div>
