@@ -1,0 +1,98 @@
+/* .Scard {
+  margin-left: 20px;
+  margin-top: 50px;
+  overflow: hidden;
+  height: 265px;
+  width: 245px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  border-radius: 20px;
+} */
+/* .Scard .Sbanner {
+  width: 245px;
+  height: 155px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: #bdbcbc;
+} */
+/* .Scard .Sbanner .Simg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 20px;
+  background-color: #bdbcbc;
+} */
+
+/* .Scard .Sinfo {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+} */
+/* .Scard .Sinfo .Sname {
+  width: 150px;
+  height: 10px;
+  background-color: #dadada;
+}
+
+.Scard .Sinfo .Srating-duration {
+  height: 10px;
+  width: 100px;
+  background-color: #dadada;
+}
+
+.Scard .Sinfo .Scuisine,
+.Slocation {
+  height: 10px;
+  width: 190px;
+  background-color: #dadada;
+}
+.Scard .Sinfo .Scuisine {
+  width: 230px;
+} */
+
+/* Animation  */
+.Scard .Sbanner .Simg::after {
+  /* using also in shimmer menu*/
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%; /* Start off-screen */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.2) 75%
+  );
+  animation: shimmerAnimation 1.5s infinite;
+}
+.SMbanner::after,
+.SMmenucard::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%; /* Start off-screen */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.2) 75%
+  );
+  animation: shimmerAnimation 1.5s infinite;
+}
+
+@keyframes shimmerAnimation {
+  0% {
+    left: -200%;
+  }
+  100% {
+    left: 100%;
+  }
+}

@@ -1,0 +1,51 @@
+/* src/index.css or src/styles.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  color: rgb(61, 65, 82);
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Gilroy Bold */
+@font-face {
+  font-family: "Gilroy-bold";
+  src: url("/assets/fonts/gilroy-bold/Gilroy-Bold.ttf") format("truetype");
+  src: url("/assets/fonts/gilroy-bold/Gilroy-Bold.ttf") format("truetype");
+}
+
+/* Gilroy Medium */
+@font-face {
+  font-family: "Gilroy-medium";
+  src: url("/assets/fonts/gilroy-bold/Gilroy-Medium.ttf") format("truetype");
+}
+
+/* Gilroy Light */
+@font-face {
+  font-family: "Gilroy-light";
+  src: url("/assets/fonts/gilroy-bold/Gilroy-Light.ttf") format("truetype");
+}
+
+/* Proxima Nova ExtraBold */
+@font-face {
+  font-family: "ProximaNova";
+  src: url("/assets/fonts/ProximaNova/proximanova_extrabold.otf")
+    format("opentype");
+}
+
+/* Proxima Nova Regular */
+@font-face {
+  font-family: "ProximaNova-regular";
+  src: url("/assets/fonts/ProximaNova/proximanova_regular.ttf")
+    format("truetype");
+}
