@@ -12,7 +12,7 @@ function CardSection() {
   const filterHandler = () => {
     setIsActive(!IsActive);
   };
-  //class of tailwind for styling----
+  //  className of tailwind for styling----
   const filterStyle =
     "py-2 px-3 select-none  cursor-pointer  text-[#02060CBF] font-gilroy-medium text-center sm:text-start rounded-2xl border border-[rgba(2,6,12,0.15)]  ";
   return (
@@ -32,11 +32,11 @@ function CardSection() {
                 }`}
                 onClick={filterHandler}
               >
-                <div>Filter</div> <i class="fa-solid fa-filter"></i>
+                <div>Filter</div> <i className="fa-solid fa-filter"></i>
               </div>
 
               <div className={`${filterStyle}  flex items-center gap-2 w-max`}>
-                <div>Sort By</div> <i class="fa-solid fa-caret-down "></i>
+                <div>Sort By</div> <i className="fa-solid fa-caret-down "></i>
               </div>
 
               <div className={`${filterStyle}`}>Pure Veg</div>
