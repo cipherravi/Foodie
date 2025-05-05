@@ -5,9 +5,8 @@ import { RestaurantSearchFilter } from "../utils/Context/RestaurantSearchFilterP
 import { useContext, useState } from "react";
 
 function CardSection() {
-  const { allRestaurant, filteredRestaurant, isLoading } = useContext(
-    RestaurantSearchFilter
-  );
+  const { allRestaurant, filteredRestaurant, isLoading, searchInput } =
+    useContext(RestaurantSearchFilter);
 
   const [IsActive, setIsActive] = useState(false);
   const filterHandler = () => {
@@ -61,7 +60,7 @@ function CardSection() {
                   No restaurants found matching your search.
                 </p>
               )}
-              {isLoading == true
+              {isLoading == true && searchInput == ""
                 ? Array(8)
                     .fill("")
                     .map((_, index) => <Shimmer key={index} />)

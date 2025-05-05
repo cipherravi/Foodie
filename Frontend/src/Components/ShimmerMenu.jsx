@@ -1,7 +1,7 @@
 function ShimmerMenu() {
   return (
     <div className="SMcontainer min-w-screen min-h-screen flex flex-col justify-center items-center">
-      <div className="SMbox  flex flex-col pt-28 justify-start items-center gap-9 w-1/2 h-screen relative">
+      <div className="SMbox  flex flex-col pt-14 justify-start items-center gap-9 w-1/2 h-screen relative">
         <div className="SMheading w-full h-9 pl-2">
           <span className="bg-[#bdbcbc] w-40 h-6 block rounded-md"></span>
         </div>

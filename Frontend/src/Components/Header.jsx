@@ -4,8 +4,13 @@ import { RestaurantSearchFilter } from "../utils/Context/RestaurantSearchFilterP
 import { useContext, useState, useEffect, useRef } from "react";
 
 function Logo() {
+  const { setSearchInput } = useContext(RestaurantSearchFilter);
+  const { pathname } = useLocation();
   return (
-    <div className="logo">
+    <div
+      className="logo"
+      onClick={() => (pathname === "/" ? setSearchInput("") : null)}
+    >
       <Link to="/">
         <img className="w-14" src="/foodie-logo.png" alt="logo" />
       </Link>
