@@ -24,7 +24,7 @@ app.use(
 );
 // Middleware: Rate limiter
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 mins
+  windowMs: 2 * 60 * 1000, // 2 mins
   max: 100, // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
