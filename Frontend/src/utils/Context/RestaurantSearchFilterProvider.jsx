@@ -1,7 +1,7 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useRef } from "react";
 import useRestaurants from "../Hooks/useRestaurants";
 import useRestaurantFilteredData from "../Hooks/useRestaurantFilteredData";
-import useIntervalRefresh from "../Hooks/useIntervalRefresh";
+
 import useNextRestaurants from "../Hooks/useNextRestaurants";
 
 // Create a context
@@ -11,6 +11,8 @@ function RestaurantSearchFilterProvider({ children }) {
   const [allRestaurant, setAllRestaurant] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState(allRestaurant);
   const [searchInput, setSearchInput] = useState("");
+  const isThrottled = useRef(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = (e) => {
     setSearchInput(e?.target?.value);
@@ -32,31 +34,33 @@ function RestaurantSearchFilterProvider({ children }) {
 
     // Fetch restaurant data
   }, []);
-  // //  Fetch restaurant data
-  // useEffect(() => {
-  //   const storedData = sessionStorage.getItem("allRestaurant");
-  //   const storedTimestamp = sessionStorage.getItem("dataTimestamp");
-
-  //   // Check if the data exists and is not too old (e.g., older than 10 min)
-  //   if (
-  //     storedData &&
-  //     storedTimestamp &&
-  //     Date.now() - storedTimestamp < 600000
-  //   ) {
-  //     // Use stored data if it's fresh (less than 10 min old)
-  //     setAllRestaurant(JSON.parse(storedData));
-  //   } else {
-  //     // Fetch new data if no data or data is stale
-  //     getRestaurants((data) => {
-  //       setAllRestaurant(data);
-  //       sessionStorage.setItem("allRestaurant", JSON.stringify(data));
-  //       sessionStorage.setItem("dataTimestamp", Date.now().toString());
-  //     });
-  //   }
-  // }, []);
-
-  // // Use custom hook to handle interval-based refresh
-  // useIntervalRefresh(getRestaurants);
+  const { getNextRestaurants } = useNextRestaurants();
+  // Fetch more restaurants when the user scrolls to the bottom
+  const handleScroll = async () => {
+    if (isThrottled.current) return;
+    try {
+      if (
+        window.innerHeight + window.scrollY + 300 >=
+        document.body.scrollHeight
+      ) {
+        setIsLoading(true);
+        isThrottled.current = true;
+        await getNextRestaurants(setAllRestaurant);
+        setTimeout(() => {
+          isThrottled.current = false;
+        }, 1000);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  // Add scroll event listener
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <RestaurantSearchFilter.Provider
@@ -68,6 +72,7 @@ function RestaurantSearchFilterProvider({ children }) {
         searchInput,
         setSearchInput,
         handleSearch,
+        isLoading,
       }}
     >
       {children}
@@ -77,18 +82,3 @@ function RestaurantSearchFilterProvider({ children }) {
 
 export default RestaurantSearchFilterProvider;
 export { RestaurantSearchFilter };
-
-// const { getNextRestaurants } = useNextRestaurants();
-// // Fetch more restaurants when the user scrolls to the bottom
-// const handleScroll = () => {
-//   if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
-//     getNextRestaurants(setAllRestaurant);
-//   }
-// };
-// // Add scroll event listener
-// useEffect(() => {
-//   window.addEventListener("scroll", handleScroll);
-//   return () => {
-//     window.removeEventListener("scroll", handleScroll);
-//   };
-// }, []);

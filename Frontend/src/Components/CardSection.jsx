@@ -5,9 +5,10 @@ import { RestaurantSearchFilter } from "../utils/Context/RestaurantSearchFilterP
 import { useContext, useState } from "react";
 
 function CardSection() {
-  const { allRestaurant, filteredRestaurant } = useContext(
+  const { allRestaurant, filteredRestaurant, isLoading } = useContext(
     RestaurantSearchFilter
   );
+
   const [IsActive, setIsActive] = useState(false);
   const filterHandler = () => {
     setIsActive(!IsActive);
@@ -17,7 +18,7 @@ function CardSection() {
     "py-2 px-3 select-none  cursor-pointer  text-[#02060CBF] font-gilroy-medium text-center sm:text-start rounded-2xl border border-[rgba(2,6,12,0.15)]  ";
   return (
     <>
-      <div className="mainContainer w-full min-h-full flex justify-center mt-7">
+      <div className="mainContainer w-full min-h-screen flex justify-center mt-7">
         <div className="dynamicContainer w-full px-1 sm:w-[80%]  min-h-full flex flex-col gap-3">
           <div className="headingContainer">
             <h1 className="font-gilroy-bold my-2  text-lg  md:text-xl lg:text-2xl text-start  leading-7 tracking-[-0.4px] text-wrap text-[rgba(2,6,12,0.92)]  ">
@@ -60,6 +61,11 @@ function CardSection() {
                   No restaurants found matching your search.
                 </p>
               )}
+              {isLoading == true
+                ? Array(8)
+                    .fill("")
+                    .map((_, index) => <Shimmer key={index} />)
+                : null}
             </div>
           </div>
         </div>
