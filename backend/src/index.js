@@ -5,6 +5,8 @@ const apiRoutes = require("./routes");
 const { scheduleNextPing } = require("./utils/ping");
 const { allowedOrigins } = require("./utils/constant");
 const { StatusCodes } = require("http-status-codes");
+const { API_authentication } = require("./middlewares/");
+const rateLimit = require("express-rate-limit");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,7 +22,14 @@ app.use(
     },
   })
 );
-app.use("/api", apiRoutes);
+// Middleware: Rate limiter
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 mins
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+app.use(limiter);
+
+app.use("/api", API_authentication, apiRoutes);
 
 async function pingServer(req, res) {
   try {
