@@ -20,6 +20,7 @@ const useRestaurants = () => {
         const apiDataPath =
           json?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
             ?.restaurants;
+        // const restaurantTitle = json?.data?.data?.cards[2]?.card?.card?.title;
 
         // Store data in state and localStorage
         setAllRestaurant(apiDataPath);
