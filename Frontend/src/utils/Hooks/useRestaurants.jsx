@@ -1,9 +1,15 @@
 import { RESTAURANTS_URL } from "../Constant";
 
+const VITE_API_KEY = import.meta.env.VITE_API_KEY;
+
 const useRestaurants = () => {
   async function getRestaurants(setAllRestaurant) {
     try {
-      const fetchedData = await fetch(RESTAURANTS_URL);
+      const fetchedData = await fetch(RESTAURANTS_URL, {
+        headers: {
+          authorization: `${VITE_API_KEY}`,
+        },
+      });
 
       // Check if fetch was successful
       if (fetchedData.ok) {

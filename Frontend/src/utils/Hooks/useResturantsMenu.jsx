@@ -1,13 +1,18 @@
 import { useParams } from "react-router-dom";
+import { RESTAURANTS_URL } from "../Constant";
+
+const VITE_API_KEY = import.meta.env.VITE_API_KEY;
 
 const useResturantsMenu = (setDataForHeader, setDataForMenu) => {
   const { id } = useParams();
 
   async function getRestaurantsMenu() {
     try {
-      const fetchedData = await fetch(
-        `https://foodie-backend-so1x.onrender.com/api/v1/restaurants/${id}`
-      );
+      const fetchedData = await fetch(`${RESTAURANTS_URL}/${id}`, {
+        headers: {
+          authorization: `${VITE_API_KEY}`,
+        },
+      });
 
       if (fetchedData.ok) {
         const json = await fetchedData.json();

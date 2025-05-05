@@ -1,3 +1,6 @@
+import { RESTAURANTS_URL } from "../Constant";
+const VITE_API_KEY = import.meta.env.VITE_API_KEY;
+
 const useNextRestaurants = () => {
   async function getNextRestaurants(setAllRestaurant) {
     try {
@@ -6,18 +9,16 @@ const useNextRestaurants = () => {
       if (!sessionId) {
         throw new Error("Session ID is missing");
       }
-      const fetchedData = await fetch(
-        "https://foodie-backend-so1x.onrender.com/api/v1/restaurants/update",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            sessionId, // Send sessionId in the request body
-          }),
-        }
-      );
+      const fetchedData = await fetch(`${RESTAURANTS_URL}/update`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `${VITE_API_KEY}`,
+        },
+        body: JSON.stringify({
+          sessionId, // Send sessionId in the request body
+        }),
+      });
 
       // Check if fetch was successful
       if (fetchedData.ok) {
