@@ -61,7 +61,7 @@ function Cart() {
                         <h2 className="text-gray-700 text-md">
                           ₹{(item.price ?? item.defaultPrice) / 100}
                         </h2>
-                        <button className="text-green-600 text-sm hover:underline">
+                        <button className="text-green-600 text-sm hover:underline text-start">
                           Customise{" "}
                           <i className="fa-solid fa-chevron-right"></i>
                         </button>
