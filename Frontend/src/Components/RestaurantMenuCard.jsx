@@ -1,5 +1,8 @@
 import { url } from "../utils/Constant";
 import "./css/RestaurantMenuCard.css";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/Store/CartSlice";
+
 function RestaurantMenuCard({
   id,
   category,
@@ -17,6 +20,26 @@ function RestaurantMenuCard({
     IMG_URL = url + imageId;
   } else {
     IMG_URL = null;
+  }
+
+  const dispatch = useDispatch();
+
+  function handleAddToCart() {
+    const item = {
+      id,
+      category,
+      isVeg,
+      name,
+      price,
+      defaultPrice,
+      description,
+      imageId,
+      inStock,
+      addons,
+    };
+    console.log("Adding to cart", item);
+
+    dispatch(addItem(item));
   }
 
   return (
@@ -45,7 +68,10 @@ function RestaurantMenuCard({
             src={IMG_URL}
             alt=""
           />
-          <button className="add-item //area w-24 h-10 //visuals absolute left-[12%] bottom-[-15px] font-gilroy-bold  text-base  px-5 py-2 outline-none rounded-md cursor-pointer uppercase border-2 border-[#d9dadb] bg-white text-[#4caf50] z-10 //responsive **start //area lg:w-28 lg:h-10   //mar-pad lg:px-10 lg:py-2 //visuals lg:left-[14%] lg:bottom-[-15px] lg:text-base end**">
+          <button
+            onClick={handleAddToCart}
+            className="add-item //area w-24 h-10 //visuals absolute left-[12%] bottom-[-15px] font-gilroy-bold  text-base  px-5 py-2 outline-none rounded-md cursor-pointer uppercase border-2 border-[#d9dadb] bg-white text-[#4caf50] z-10 //responsive **start //area lg:w-28 lg:h-10   //mar-pad lg:px-10 lg:py-2 //visuals lg:left-[14%] lg:bottom-[-15px] lg:text-base end**"
+          >
             ADD
           </button>
         </div>

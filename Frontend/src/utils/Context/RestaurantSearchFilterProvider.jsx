@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useRef } from "react";
+import { useState, useEffect, createContext, useRef, useMemo } from "react";
 import useRestaurants from "../Hooks/useRestaurants";
 import useRestaurantFilteredData from "../Hooks/useRestaurantFilteredData";
 
@@ -64,16 +64,28 @@ function RestaurantSearchFilterProvider({ children }) {
 
   return (
     <RestaurantSearchFilter.Provider
-      value={{
-        allRestaurant,
-        setAllRestaurant,
-        filteredRestaurant,
-        setFilteredRestaurant,
-        searchInput,
-        setSearchInput,
-        handleSearch,
-        isLoading,
-      }}
+      value={useMemo(
+        () => ({
+          allRestaurant,
+          setAllRestaurant,
+          filteredRestaurant,
+          setFilteredRestaurant,
+          searchInput,
+          setSearchInput,
+          handleSearch,
+          isLoading,
+        }),
+        [
+          allRestaurant,
+          setAllRestaurant,
+          filteredRestaurant,
+          setFilteredRestaurant,
+          searchInput,
+          setSearchInput,
+          handleSearch,
+          isLoading,
+        ]
+      )}
     >
       {children}
     </RestaurantSearchFilter.Provider>

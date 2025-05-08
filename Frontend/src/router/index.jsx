@@ -1,13 +1,17 @@
 import App from "../App.jsx";
-import { createBrowserRouter } from "react-router-dom";
-import Error from "../pages/Error.jsx";
-import Offers from "../pages/Offers.jsx";
-import Help from "../pages/Help.jsx";
-import Login from "../pages/Login.jsx";
-import SignUp from "../pages/SignUp.jsx";
-import Cart from "../pages/Cart.jsx";
-import RestaurantMenu from "../pages/RestaurantMenu.jsx";
+import { lazy } from "react";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+
+const Error = lazy(() => import("../pages/Error.jsx"));
+const Offers = lazy(() => import("../pages/Offers.jsx"));
+const Help = lazy(() => import("../pages/Help.jsx"));
+const Login = lazy(() => import("../pages/Login.jsx"));
+const SignUp = lazy(() => import("../pages/SignUp.jsx"));
+const Cart = lazy(() => import("../pages/Cart.jsx"));
+const RestaurantMenu = lazy(() => import("../pages/RestaurantMenu.jsx"));
+
 import CardSection from "../Components/CardSection.jsx";
+import Test from "../Components/Test.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +21,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        path: "/",
+        element: <Navigate to="/restaurants" replace />,
+      },
+      {
+        path: "restaurants",
         element: <CardSection />,
       },
       {
@@ -42,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "restaurant/:name/:id/menu",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "test",
+        element: <Test />,
       },
     ],
   },

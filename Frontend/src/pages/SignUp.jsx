@@ -13,9 +13,9 @@ const SignUp = () => {
   };
   return (
     <div>
-      <div className="wrapper //area w-screen min-h-screen //layout flex justify-center items-center">
-        <div className="box //layout flex flex-col justify-start items-center  //area w-[70%]  h-1/2  //responsive //start*** sm:w-[45%] md:w-[40%] lg:w-[30%] xl:w-[28%] //area //visuals //end*** //visuals bg-[#fde6e6]  p-8 rounded-lg shadow-lg gap-5">
-          <h1 className="form-heading //responsive //start***  //area   //visuals sm:text-3xl lg:text-4xl //end***  //visuals font-gilroy-bold text-2xl">
+      <div className="wrapper  w-screen h-[90vh]  flex justify-center items-center">
+        <div className="box  flex flex-col justify-start items-center w-[70%]  h-1/2  sm:w-[45%] md:w-[40%] lg:w-[30%] xl:w-[28%] bg-[#fde6e6]  p-8 rounded-lg shadow-lg gap-5">
+          <h1 className="form-heading sm:text-3xl lg:text-4xl font-gilroy-bold text-2xl">
             Sign Up
           </h1>
           <input
@@ -24,7 +24,7 @@ const SignUp = () => {
             required
             min="10"
             maxLength="10"
-            className="number-input //area w-[60%] h-[11%] //responsive //start*** sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] //area   //visuals sm:text-base //end*** //mar-pad  p-3 //visuals outline-none rounded-md  text-sm"
+            className="number-input  w-[60%] h-[11%] sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] sm:text-base mar-pad  p-3  outline-none rounded-md  text-sm"
             value={value}
             onChange={handleChange}
           />
@@ -34,24 +34,24 @@ const SignUp = () => {
             required
             min="8"
             maxLength="20"
-            className="password-input //area w-[60%] h-[11%] //responsive //start*** sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] //area   //visuals sm:text-base   //end*** //mar-pad  p-3 //visuals outline-none rounded-md  text-sm"
+            className="password-input  w-[60%] h-[11%] sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] sm:text-base p-3  outline-none rounded-md  text-sm"
           />
           <button
             type="submit"
-            className="submit //area  w-[55%] h-[13%] //responsive //start*** sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] //area    //visuals //end***  //visuals  text-sm font-gilroy-medium bg-[#b80000] cursor-pointer text-white rounded-md border-none"
+            className="submit   w-[55%] h-[13%] sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] text-sm font-gilroy-medium bg-[#b80000] cursor-pointer text-white rounded-md border-none"
           >
             Create an account
           </button>
-          <span className="term-condition //area w-full //responsive //start***  //area   //visuals //end***   //mar-pad px-0 //visuals font-gilroy-medium text-xs  text-center ">
+          <span className="term-condition  w-full  px-0  font-gilroy-medium text-xs  text-center ">
             By clicking on Login, I accept the{" "}
             <span className="font-bold">
               Terms & Conditions & Privacy Policy
             </span>
           </span>
-          <span className="create-account //visuals font-gilroy-medium text-sm">
+          <span className="create-account  font-gilroy-medium text-sm">
             <span>or </span>
             <Link to="/login">
-              <span className="  //visuals select-none font-gilroy-bold cursor-pointer">
+              <span className="   select-none font-gilroy-bold cursor-pointer">
                 Login
               </span>
             </Link>

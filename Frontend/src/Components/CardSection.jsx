@@ -61,7 +61,7 @@ function CardSection() {
                 </p>
               )}
               {isLoading == true && searchInput == ""
-                ? Array(8)
+                ? Array(6)
                     .fill("")
                     .map((_, index) => <Shimmer key={index} />)
                 : null}

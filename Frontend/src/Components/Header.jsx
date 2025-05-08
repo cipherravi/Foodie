@@ -9,9 +9,9 @@ function Logo() {
   return (
     <div
       className="logo"
-      onClick={() => (pathname === "/" ? setSearchInput("") : null)}
+      onClick={() => (pathname === "/restaurants" ? setSearchInput("") : null)}
     >
-      <Link to="/">
+      <Link to="/restaurants">
         <img className="w-14" src="/foodie-logo.png" alt="logo" />
       </Link>
     </div>
@@ -118,7 +118,7 @@ function NavLinks({ isOpen, navRef, commonLi, searchInput, handleSearch }) {
           <span>
             <i className="fa-solid fa-magnifying-glass text-lg"></i>
           </span>
-          {location.pathname === "/" ? (
+          {
             <input
               className="search-box rounded-md text-lg cursor-pointer w-32 border border-black transition-all duration-300 ease-in-out focus:w-52 focus:h-8"
               type="text"
@@ -126,7 +126,7 @@ function NavLinks({ isOpen, navRef, commonLi, searchInput, handleSearch }) {
               value={searchInput}
               onChange={handleSearch}
             />
-          ) : null}
+          }
         </li>
         <Link to="offers">
           <li className={commonLi}>
