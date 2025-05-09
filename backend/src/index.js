@@ -33,10 +33,10 @@ app.use("/api", API_authentication, apiRoutes);
 
 async function pingServer(req, res) {
   try {
-    const response = await fetch("https://keep-alive-rbb2.onrender.com/ping");
+    const response = await fetch("https://keep-alive-rbb2.onrender.com/pong");
     setTimeout(() => {
       pingServer();
-    }, 600000); // 10 minutes
+    }, 481235); // 8 minutes
     if (response.ok) {
       console.log("Server is up and running");
     } else {
