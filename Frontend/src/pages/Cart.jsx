@@ -1,26 +1,38 @@
 import "./css/Cart.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import { url } from "../utils/Constant";
+import { removeItem, addItem } from "../utils/Store/CartSlice";
+
+function AddTotalBill(cartItems) {
+  let totalPrice = 0;
+  cartItems.forEach((item) => {
+    let itemPrice = item.price || item.defaultPrice || 0;
+    itemPrice = itemPrice * item.quantity;
+    totalPrice += itemPrice;
+  });
+  return totalPrice / 100;
+}
+function AddGSTAndOther() {}
+
 function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
-  const {
-    id,
-    category,
-    isVeg,
-    name,
-    price,
-    defaultPrice,
-    description,
-    imageId,
-    inStock,
-    addons,
-  } = cartItems;
-  console.log(cartItems);
 
-  function handleRemoveItemFromCart() {}
-  function handleAddItemToCart() {}
-  function findTotalItem() {}
+  const dispatch = useDispatch();
+  console.log(cartItems);
+  function handleRemoveItemFromCart(id) {
+    dispatch(removeItem(id));
+  }
+  function handleIncreaseQuantity(item) {
+    dispatch(addItem(item));
+  }
+
+  const totalItemPrice = AddTotalBill(cartItems);
+  const deliveryPrice = 10;
+  const totalGstAndOther = 20;
+  const totalBillPrice = totalItemPrice + deliveryPrice + totalGstAndOther;
+
   return (
     <>
       <div className="cart-wrapper w-full min-h-screen bg-[#E9ECEE]  flex justify-center gap-10 py-10">
@@ -61,8 +73,8 @@ function Cart() {
                         <h2 className="text-gray-700 text-md">
                           ₹{(item.price ?? item.defaultPrice) / 100}
                         </h2>
-                        <button className="text-green-600 text-sm hover:underline text-start">
-                          Customise{" "}
+                        <button className=" w-20 text-green-600 text-sm hover:underline text-start ">
+                          Customise
                           <i className="fa-solid fa-chevron-right"></i>
                         </button>
                       </div>
@@ -71,19 +83,19 @@ function Cart() {
                     {/* Quantity Controls */}
                     <div className="flex items-center">
                       <div className="flex items-center gap-4 px-4 py-1 text-xl border rounded-md">
-                        <div
+                        <button
                           className="cursor-pointer"
-                          onClick={handleRemoveItemFromCart}
+                          onClick={() => handleRemoveItemFromCart(item.id)}
                         >
                           -
-                        </div>
-                        <div>0</div>
-                        <div
+                        </button>
+                        <div>{item.quantity}</div>
+                        <button
                           className="cursor-pointer"
-                          onClick={handleAddItemToCart}
+                          onClick={() => handleIncreaseQuantity(item)}
                         >
                           +
-                        </div>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -106,16 +118,86 @@ function Cart() {
           </div>
         </div>
         <div className="w-[30%] h-screen bg-white flex flex-col gap-4">
-          <div className="w-full h-3/5  ">
-            <h1 className="font-gilroy-bold text-xl text-center p-2 ">
+          <div className="w-full h-[60%]  flex flex-col items-center">
+            <h1 className="font-gilroy-bold text-xl  p-2 ">
               Delivery Address <i className="fa-solid fa-location-dot"></i>
             </h1>
+            <div className="flex flex-col gap-7 w-[80%] h-1/2 mt-5">
+              <input
+                type="text"
+                placeholder="Address"
+                className="border-2 h-14 p-2"
+              />
+              <div className="flex flex-col  w-full ">
+                <input
+                  type="text"
+                  placeholder="Door / Flat No."
+                  className="border-2 border-b-0 h-14 p-2"
+                />
+                <input
+                  type="text"
+                  placeholder="LandMark"
+                  className="border-2 h-14 p-2"
+                />
+              </div>
+            </div>
+            <div className="w-[80%] h-max flex ">
+              <button className=" w-1/3 p-6 h-5 border flex justify-center items-center">
+                Home
+              </button>
+              <button className=" w-1/3 p-6 h-5 border flex justify-center items-center">
+                Work
+              </button>
+              <button className=" w-1/3 p-6 h-5 border flex justify-center items-center">
+                Other
+              </button>
+            </div>
+            <button className="w-2/3 h-10 p-2 text-white font-gilroy-medium mt-10 bg-[#B80000]">
+              SAVE ADDRESS & PROCEED
+            </button>
           </div>
           <span className="w-full h-4 pt-2 bg-[#E9ECEE] "></span>
           <div className="w-full h-2/5 ">
-            <h1 className="font-gilroy-bold text-xl text-start p-2 px-10">
+            <h1 className="font-gilroy-bold text-xl text-start p-2 px-4">
               Bill Details
             </h1>
+            <div className="w-full h-3/4 flex flex-col justify-around gap-4 p-4 font-gilroy-medium">
+              <div>
+                <div className="flex w-full justify-between px-2">
+                  <p>Item Total</p>
+                  <p className="text-sm">
+                    <i className="text-sm mr-0.5">₹</i>
+                    {totalItemPrice}
+                  </p>
+                </div>
+                <div className="flex w-full justify-between px-2">
+                  <p>Delivery Fee</p>
+                  <p className="text-sm">
+                    <i className="text-sm mr-0.5">₹</i>
+                    {deliveryPrice}
+                  </p>
+                </div>
+              </div>
+              <div className="flex w-full justify-between px-2">
+                <p>Delivery Tip</p>
+                <button className=" text-[#B80000]">Add Tip</button>
+              </div>
+              <div className="flex w-full justify-between px-2 ">
+                <p>GST & other charges </p>
+                <p className="text-sm">
+                  <i className="text-sm mr-0.5">₹</i>
+                  {totalGstAndOther}
+                </p>
+              </div>
+              <p className="line w-full  min-h-0.5 bg-black "></p>
+              <div className="flex w-full justify-between px-2 pt-5">
+                <p className="font-gilroy-bold">TO PAY</p>
+                <p className="font-gilroy-bold">
+                  <i className="text-sm mr-0.5">₹</i>
+                  {totalBillPrice}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
