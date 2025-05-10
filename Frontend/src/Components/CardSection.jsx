@@ -18,7 +18,6 @@ function CardSection() {
     setIsActive(!IsActive);
   };
 
-  //
   const isThrottled = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
 
