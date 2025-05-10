@@ -5,31 +5,31 @@ const DeliveryAddress = () => {
 
   const addressType = ["Home", "Work", "Other"];
   return (
-    <div className="w-full h-[60%]  flex flex-col items-center">
-      <h1 className="font-gilroy-bold text-xl  p-2 ">
+    <div className="w-full h-2/5  flex flex-col items-center bg-white">
+      <h1 className="font-gilroy-bold text-xl  p-1 ">
         Delivery Address <i className="fa-solid fa-location-dot"></i>
       </h1>
-      <div className="flex flex-col gap-7 w-[80%] h-1/2 mt-5">
+      <div className="flex flex-col gap-4 w-[80%] h-1/2 mt-5">
         <input
           type="text"
           placeholder="Address"
-          className="border-2 h-14 p-2"
+          className="border-2 h-12 p-2"
         />
-        <div className="flex flex-col  w-full ">
+        <div className="flex flex-col  w-full gap-0.5">
           <input
             type="text"
             placeholder="Door / Flat No."
-            className="border-2 border-b-0 h-14 p-2"
+            className="border-2 h-12 p-2"
           />
           <input
             type="text"
             placeholder="LandMark"
-            className="border-2 h-14 p-2"
+            className="border-2 h-12 p-2"
           />
         </div>
       </div>
       {/*  */}
-      <div className="w-[80%] h-max flex">
+      <div className="w-[80%] h-20 flex mt-4">
         {addressType.map((label, index) => (
           <button
             key={index}
@@ -50,7 +50,7 @@ const DeliveryAddress = () => {
         ))}
       </div>
       {/*  */}
-      <button className="w-2/3 h-10 p-2 text-white font-gilroy-medium mt-10 bg-[#B80000]">
+      <button className="w-2/3 h-10 p-2 text-white font-gilroy-medium mt-4 bg-[#B80000]">
         SAVE ADDRESS & PROCEED
       </button>
     </div>

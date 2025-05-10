@@ -3,7 +3,7 @@ import { useState } from "react";
 const Button = () => {
   return (
     <div className="w-full h-10 flex justify-center mt-2">
-      <button className="bg-[#B80000] p-2 text-white rounded-lg">
+      <button className="bg-[#B80000] p-2 w-1/2 text-white rounded-lg">
         Proceed
       </button>
     </div>
@@ -11,7 +11,7 @@ const Button = () => {
 };
 
 const PaymentMethod = () => {
-  const [selectedMethod, setSelectedMethod] = useState(null);
+  const [selectedMethod, setSelectedMethod] = useState("Upi");
 
   const paymentOptions = ["Card", "Upi", "Pay Later", "Cash On Delivery"];
 
@@ -61,8 +61,8 @@ const PaymentMethod = () => {
       <h1 className="font-gilroy-bold text-xl text-center p-2 ">
         Payment method <i className="fa-solid fa-wallet"></i>
       </h1>
-      <div className="flex w-full h-[85%]">
-        <div className="w-1/2 h-[85%] flex flex-col justify-around gap-4 p-4">
+      <div className="flex w-full h-full">
+        <div className="w-1/2 h-full flex flex-col justify-around gap-4 p-4">
           {paymentOptions.map((method, index) => (
             <div
               key={index}

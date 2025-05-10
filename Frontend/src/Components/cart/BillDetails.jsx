@@ -21,7 +21,7 @@ const BillDetails = () => {
   );
 
   return (
-    <div className="w-full h-2/5 ">
+    <div className="w-full h-2/5  ">
       <h1 className="font-gilroy-bold text-xl text-start p-2 px-4">
         Bill Details
       </h1>

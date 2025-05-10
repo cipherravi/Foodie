@@ -6,15 +6,16 @@ import BillDetails from "../Components/cart/BillDetails";
 function Cart() {
   return (
     <>
-      <div className="cart-wrapper w-full min-h-screen bg-[#E9ECEE]  flex justify-center gap-10 py-10">
-        <div className="w-[55%] h-screen  flex flex-col gap-4">
+      <div className="cart-wrapper w-full min-h-screen bg-white flex flex-col  justify-center  lg:flex-row ">
+        <div className="w-full h-screen lg:w-[60%]  flex flex-col gap-2 bg-white ">
           <ItemInCart />
-          <PaymentMethod />
-        </div>
-        <div className="w-[30%] h-screen bg-white flex flex-col gap-4">
           <DeliveryAddress />
-          <span className="w-full h-4 pt-2 bg-[#E9ECEE] "></span>
+        </div>
+        <div className="w-full h-screen lg:w-[40%] bg-white flex flex-col gap-4 mt-10 lg:mt-2">
+          <span className="w-full h-4 pt-2 bg-[#E9ECEE] lg:hidden "></span>
           <BillDetails />
+          <span className="w-full h-4 pt-2 bg-[#E9ECEE] "></span>
+          <PaymentMethod />
         </div>
       </div>
     </>

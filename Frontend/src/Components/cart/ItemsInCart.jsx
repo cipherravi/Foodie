@@ -15,7 +15,7 @@ const ItemsInCart = () => {
     dispatch(addItem(item));
   }
   return (
-    <div className=" h-3/5 bg-white w-full overflow-y-auto overflow-x-hidden relative  ">
+    <div className=" h-[60%] bg-white w-full   flex flex-col items-center  overflow-y-auto overflow-x-hidden">
       <h1 className="font-gilroy-bold text-2xl text-center p-2 sticky top-0 w-full bg-white ">
         Items in Cart
         <i className="fa-solid fa-cart-shopping lg:text-lg"></i>
@@ -26,12 +26,12 @@ const ItemsInCart = () => {
           let IMG_URL = item.imageId ? url + item.imageId : null;
           return (
             <div
-              className="bg-slate-200 flex justify-between p-5 w-[90%] ml-9 mb-3 rounded-lg shadow"
+              className="bg-slate-200 flex justify-between p-4 w-full   mb-3 rounded-lg shadow"
               key={item.id}
             >
-              <div className="flex gap-6 items-start w-3/4">
+              <div className="flex gap-2 items-start w-3/4">
                 {/* Image Section */}
-                <div className="w-[100px] h-[100px] overflow-hidden rounded-md border">
+                <div className="w-32 max-w-36 h-24 max-h-56  overflow-hidden rounded-md border">
                   {IMG_URL ? (
                     <img
                       src={IMG_URL}
@@ -46,8 +46,8 @@ const ItemsInCart = () => {
                 </div>
 
                 {/* Item Details */}
-                <div className="flex flex-col justify-between gap-2">
-                  <h1 className="font-semibold text-lg">{item.name}</h1>
+                <div className="flex flex-col justify-between gap-2 w-3/5">
+                  <h1 className="font-semibold text-md ">{item.name}</h1>
                   <h2 className="text-gray-700 text-md">
                     ₹{(item.price ?? item.defaultPrice) / 100}
                   </h2>
@@ -60,7 +60,7 @@ const ItemsInCart = () => {
 
               {/* Quantity Controls */}
               <div className="flex items-center ">
-                <div className="flex items-center justify-center w-28 gap-4 px-4 py-1 text-xl border rounded-md border-black font-gilroy-bold select-none">
+                <div className="flex items-center justify-center w-20 max-w-32 gap-4 px-4 py-1 text-xl border rounded-md border-black font-gilroy-bold select-none">
                   <button
                     className="cursor-pointer"
                     onClick={() => handleRemoveItemFromCart(item.id)}
