@@ -1,9 +1,9 @@
 import "./css/Cart.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { url } from "../utils/Constant";
 import { removeItem, addItem } from "../utils/Store/CartSlice";
+import { useState } from "react";
 
 function AddTotalBill(cartItems) {
   let totalPrice = 0;
@@ -17,6 +17,8 @@ function AddTotalBill(cartItems) {
 function AddGSTAndOther() {}
 
 function Cart() {
+  const [activeIndex, setActiveIndex] = useState(null);
+
   const cartItems = useSelector((state) => state.cart.items);
 
   const dispatch = useDispatch();
@@ -30,8 +32,10 @@ function Cart() {
 
   const totalItemPrice = AddTotalBill(cartItems);
   const deliveryPrice = 10;
-  const totalGstAndOther = 20;
-  const totalBillPrice = totalItemPrice + deliveryPrice + totalGstAndOther;
+  const totalGstAndOther = Math.floor((18 / 100) * totalItemPrice);
+  const totalBillPrice = Math.floor(
+    totalItemPrice + deliveryPrice + totalGstAndOther
+  );
 
   return (
     <>
@@ -81,17 +85,17 @@ function Cart() {
                     </div>
 
                     {/* Quantity Controls */}
-                    <div className="flex items-center">
-                      <div className="flex items-center gap-4 px-4 py-1 text-xl border rounded-md">
+                    <div className="flex items-center ">
+                      <div className="flex items-center justify-center w-28 gap-4 px-4 py-1 text-xl border rounded-md border-black">
                         <button
                           className="cursor-pointer"
                           onClick={() => handleRemoveItemFromCart(item.id)}
                         >
-                          -
+                          <i className="text-2xl">-</i>
                         </button>
-                        <div>{item.quantity}</div>
+                        <div className="text-green-700">{item.quantity}</div>
                         <button
-                          className="cursor-pointer"
+                          className="cursor-pointer text-green-700 "
                           onClick={() => handleIncreaseQuantity(item)}
                         >
                           +
@@ -111,10 +115,27 @@ function Cart() {
               </div>
             )}
           </div>
-          <div className=" h-2/5 bg-white">
+          <div className=" h-2/5 bg-white w-full ">
             <h1 className="font-gilroy-bold text-xl text-center p-2 ">
               Payment method <i className="fa-solid fa-wallet"></i>
             </h1>
+            <div className="flex w-full h-[85%]">
+              <div className="w-1/2 h-[85%] flex flex-col justify-around gap-4 p-4">
+                <div className="w-full h-1/4 bg-[#E9ECEE] rounded-md flex items-center px-5 font-gilroy-bold cursor-pointer select-none hover:bg-black hover:text-white">
+                  <p>Card</p>
+                </div>
+                <div className="w-full h-1/4 bg-[#E9ECEE] rounded-md flex items-center px-5 font-gilroy-bold cursor-pointer select-none hover:bg-black hover:text-white">
+                  <p>Upi</p>
+                </div>
+                <div className="w-full h-1/4 bg-[#E9ECEE] rounded-md flex items-center px-5 font-gilroy-bold cursor-pointer select-none hover:bg-black hover:text-white">
+                  <p>Pay Later</p>
+                </div>
+                <div className="w-full h-1/4 bg-[#E9ECEE] rounded-md flex items-center px-5 font-gilroy-bold cursor-pointer select-none hover:bg-black hover:text-white">
+                  <p>Cash On Delivery</p>
+                </div>
+              </div>
+              <div className="w-1/2 h-[85%] mr-2"></div>
+            </div>
           </div>
         </div>
         <div className="w-[30%] h-screen bg-white flex flex-col gap-4">
@@ -141,17 +162,32 @@ function Cart() {
                 />
               </div>
             </div>
-            <div className="w-[80%] h-max flex ">
-              <button className=" w-1/3 p-6 h-5 border flex justify-center items-center">
-                Home
-              </button>
-              <button className=" w-1/3 p-6 h-5 border flex justify-center items-center">
-                Work
-              </button>
-              <button className=" w-1/3 p-6 h-5 border flex justify-center items-center">
-                Other
-              </button>
+            {/*  */}
+            <div className="w-[80%] h-max flex">
+              {["Home", "Work", "Other"].map((label, index) => (
+                <button
+                  key={index}
+                  onClick={
+                    () => setActiveIndex(activeIndex === index ? null : index) // toggle same button
+                  }
+                  className={`w-1/3 p-6 h-5 border flex justify-center items-center hover:bg-black hover:text-white ${
+                    activeIndex === index ? "bg-black text-white" : ""
+                  }`}
+                >
+                  <div className="flex items-center justify-center gap-1">
+                    {label === "Home" && <i className="fa-solid fa-house" />}
+                    {label === "Work" && (
+                      <i className="fa-solid fa-briefcase" />
+                    )}
+                    {label === "Other" && (
+                      <i className="fa-solid fa-location-dot" />
+                    )}
+                    {label}
+                  </div>
+                </button>
+              ))}
             </div>
+            {/*  */}
             <button className="w-2/3 h-10 p-2 text-white font-gilroy-medium mt-10 bg-[#B80000]">
               SAVE ADDRESS & PROCEED
             </button>
