@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "./css/Footer.css";
 
 function Footer() {
   //tailwind classes

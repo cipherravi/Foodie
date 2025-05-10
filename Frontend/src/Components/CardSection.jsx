@@ -1,4 +1,3 @@
-import "./css/CardSection.css";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { RestaurantSearchFilter } from "../utils/Context/RestaurantSearchFilterProvider";

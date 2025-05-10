@@ -1,4 +1,3 @@
-import "./css/Header.css";
 import { Link, useLocation } from "react-router-dom";
 import { RestaurantSearchFilter } from "../utils/Context/RestaurantSearchFilterProvider.jsx";
 import { useContext, useState, useEffect, useRef } from "react";

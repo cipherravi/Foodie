@@ -1,5 +1,3 @@
-import "./css/Offers.css";
-
 function Offers() {
   return (
     <>

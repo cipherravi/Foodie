@@ -1,4 +1,3 @@
-import "./css/RestaurantMenuSection.css";
 import { useEffect, useState } from "react";
 import RestaurantMenuCategory from "./RestaurantMenuCategory";
 

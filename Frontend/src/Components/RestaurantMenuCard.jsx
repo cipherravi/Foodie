@@ -1,5 +1,5 @@
 import { url } from "../utils/Constant";
-import "./css/RestaurantMenuCard.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, removeItem } from "../utils/Store/CartSlice";
 

@@ -1,5 +1,3 @@
-import "./css/Cart.css";
-
 import ItemInCart from "../Components/cart/ItemsInCart";
 import PaymentMethod from "../Components/cart/PaymentMethod";
 import DeliveryAddress from "../Components/cart/DeliveryAddress";
