@@ -2,16 +2,55 @@ import "./css/CardSection.css";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { RestaurantSearchFilter } from "../utils/Context/RestaurantSearchFilterProvider";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
+import useNextRestaurants from "../utils/Hooks/useNextRestaurants";
 
 function CardSection() {
-  const { allRestaurant, filteredRestaurant, isLoading, searchInput } =
-    useContext(RestaurantSearchFilter);
+  const {
+    allRestaurant,
+    filteredRestaurant,
+
+    searchInput,
+    setAllRestaurant,
+  } = useContext(RestaurantSearchFilter);
 
   const [IsActive, setIsActive] = useState(false);
   const filterHandler = () => {
     setIsActive(!IsActive);
   };
+
+  //
+  const isThrottled = useRef(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { getNextRestaurants } = useNextRestaurants();
+  // Fetch more restaurants when the user scrolls to the bottom
+  const handleScroll = async () => {
+    if (isThrottled.current) return;
+    try {
+      if (
+        window.innerHeight + window.scrollY + 300 >=
+        document.body.scrollHeight
+      ) {
+        setIsLoading(true);
+        isThrottled.current = true;
+        await getNextRestaurants(setAllRestaurant);
+        setTimeout(() => {
+          isThrottled.current = false;
+        }, 1000);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  // Add scroll event listener
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  //
   //  className of tailwind for styling----
   const filterStyle =
     "py-2 px-3 select-none  cursor-pointer  text-[#02060CBF] font-gilroy-medium text-center sm:text-start rounded-2xl border border-[rgba(2,6,12,0.15)]  ";

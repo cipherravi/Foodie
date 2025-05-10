@@ -60,8 +60,6 @@ function PhoneNav({ isOpen, setIsOpen, commonLi, searchInput, handleSearch }) {
 }
 
 function NavLinks({ isOpen, navRef, commonLi, searchInput, handleSearch }) {
-  const location = useLocation();
-
   return (
     <>
       {/* ✅ Changed wrapper from <ul> to <div> to better control absolute positioning */}

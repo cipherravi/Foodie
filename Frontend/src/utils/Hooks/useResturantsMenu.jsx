@@ -8,6 +8,17 @@ const useResturantsMenu = (setDataForHeader, setDataForMenu) => {
 
   async function getRestaurantsMenu() {
     try {
+      const cached = sessionStorage.getItem("latestMenu");
+      const parsed = cached ? JSON.parse(cached) : null;
+
+      if (parsed && parsed.id === id) {
+        setDataForHeader(parsed.json?.data?.cards[2]?.card?.card?.info);
+        setDataForMenu(
+          parsed.json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards
+        );
+        return;
+      }
+
       const fetchedData = await fetch(`${RESTAURANTS_URL}/${id}`, {
         headers: {
           authorization: `${VITE_API_KEY}`,
@@ -16,11 +27,11 @@ const useResturantsMenu = (setDataForHeader, setDataForMenu) => {
 
       if (fetchedData.ok) {
         const json = await fetchedData.json();
+        sessionStorage.setItem("latestMenu", JSON.stringify({ id, json }));
 
         const apiDataForHeader = json?.data?.cards[2]?.card?.card?.info;
         const apiDataForMenu =
           json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-        // Store data in state
 
         setDataForHeader(apiDataForHeader);
         setDataForMenu(apiDataForMenu);

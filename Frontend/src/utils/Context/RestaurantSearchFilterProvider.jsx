@@ -11,8 +11,6 @@ function RestaurantSearchFilterProvider({ children }) {
   const [allRestaurant, setAllRestaurant] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState(allRestaurant);
   const [searchInput, setSearchInput] = useState("");
-  const isThrottled = useRef(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = (e) => {
     setSearchInput(e?.target?.value);
@@ -34,33 +32,6 @@ function RestaurantSearchFilterProvider({ children }) {
 
     // Fetch restaurant data
   }, []);
-  const { getNextRestaurants } = useNextRestaurants();
-  // Fetch more restaurants when the user scrolls to the bottom
-  const handleScroll = async () => {
-    if (isThrottled.current) return;
-    try {
-      if (
-        window.innerHeight + window.scrollY + 300 >=
-        document.body.scrollHeight
-      ) {
-        setIsLoading(true);
-        isThrottled.current = true;
-        await getNextRestaurants(setAllRestaurant);
-        setTimeout(() => {
-          isThrottled.current = false;
-        }, 1000);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  // Add scroll event listener
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <RestaurantSearchFilter.Provider
@@ -73,7 +44,6 @@ function RestaurantSearchFilterProvider({ children }) {
           searchInput,
           setSearchInput,
           handleSearch,
-          isLoading,
         }),
         [
           allRestaurant,
@@ -83,7 +53,6 @@ function RestaurantSearchFilterProvider({ children }) {
           searchInput,
           setSearchInput,
           handleSearch,
-          isLoading,
         ]
       )}
     >
