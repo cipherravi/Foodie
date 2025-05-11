@@ -22,6 +22,8 @@ function PhoneNav({ isOpen, setIsOpen, commonLi, searchInput, handleSearch }) {
     setIsOpen(!isOpen);
   };
 
+  const { pathname } = useLocation();
+
   return (
     <div className="sm:hidden flex flex-row-reverse gap-4">
       <li
@@ -44,9 +46,9 @@ function PhoneNav({ isOpen, setIsOpen, commonLi, searchInput, handleSearch }) {
         <span>
           <i className="fa-solid fa-magnifying-glass text-lg"></i>
         </span>
-        {location.pathname === "/" ? (
+        {location.pathname === "/restaurants" ? (
           <input
-            className="search-box rounded-md text-lg cursor-pointer w-32 border border-black transition-all duration-300 ease-in-out focus:w-44 focus:h-8"
+            className="search-box rounded-md text-lg cursor-pointer w-32 border border-black transition-all duration-300 ease-in-out focus:w-36 focus:h-8"
             type="text"
             placeholder="Search"
             value={searchInput}
@@ -61,7 +63,6 @@ function PhoneNav({ isOpen, setIsOpen, commonLi, searchInput, handleSearch }) {
 function NavLinks({ isOpen, navRef, commonLi, searchInput, handleSearch }) {
   return (
     <>
-      {/* ✅ Changed wrapper from <ul> to <div> to better control absolute positioning */}
       <div
         ref={navRef}
         className={`sm:hidden fixed top-20 right-0 w-1/2 rounded-b-lg h-1/3  bg-white shadow-md z-50 transform transition-all duration-300 ease-in-out  ${
