@@ -14,7 +14,7 @@ const useNextRestaurants = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          authorization: `${VITE_API_KEY}`,
+          nset789ewy8w7: `${VITE_API_KEY}`,
         },
         body: JSON.stringify({
           sessionId, // Send sessionId in the request body

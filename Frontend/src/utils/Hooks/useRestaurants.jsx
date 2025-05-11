@@ -7,7 +7,7 @@ const useRestaurants = () => {
     try {
       const fetchedData = await fetch(RESTAURANTS_URL, {
         headers: {
-          authorization: `${VITE_API_KEY}`,
+          nset789ewy8w7: `${VITE_API_KEY}`,
         },
       });
 

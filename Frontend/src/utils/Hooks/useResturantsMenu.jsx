@@ -21,7 +21,7 @@ const useResturantsMenu = (setDataForHeader, setDataForMenu) => {
 
       const fetchedData = await fetch(`${RESTAURANTS_URL}/${id}`, {
         headers: {
-          authorization: `${VITE_API_KEY}`,
+          nset789ewy8w7: `${VITE_API_KEY}`,
         },
       });
 

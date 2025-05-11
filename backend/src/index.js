@@ -30,6 +30,9 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.use("/api", API_authentication, apiRoutes);
+app.get("/test", (req, res) => {
+  res.send("hello from test");
+});
 
 async function pingServer(req, res) {
   try {
