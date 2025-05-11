@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { PORT } = require("./config/server-config");
+const { ConnectDB, PORT } = require("./config");
 const apiRoutes = require("./routes");
 const { scheduleNextPing } = require("./utils/ping");
 const { allowedOrigins } = require("./utils/constant");
@@ -36,11 +36,11 @@ async function pingServer(req, res) {
     const response = await fetch("https://keep-alive-rbb2.onrender.com/pong");
     setTimeout(() => {
       pingServer();
-    }, 481235); // 8 minutes
+    }, 463275); // 8 minutes
     if (response.ok) {
-      console.log("Server is up and running");
+      console.log("Ping Server is up and running");
     } else {
-      console.error("Server is down");
+      console.error("Ping Server is down");
     }
   } catch (error) {
     res
@@ -49,7 +49,15 @@ async function pingServer(req, res) {
   }
 }
 pingServer();
-app.listen(PORT, () => {
-  console.log(`Server is running at ${PORT}`);
-  scheduleNextPing();
-});
+
+ConnectDB()
+  .then(() => {
+    console.log("Database connected succesfully");
+    app.listen(PORT, () => {
+      console.log(`Server is running at ${PORT}`);
+      scheduleNextPing();
+    });
+  })
+  .catch((err) => {
+    console.log("ERROR", err);
+  });
