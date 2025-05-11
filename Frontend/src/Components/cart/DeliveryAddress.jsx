@@ -5,7 +5,7 @@ const DeliveryAddress = () => {
 
   const addressType = ["Home", "Work", "Other"];
   return (
-    <div className="w-full h-2/5  flex flex-col items-center bg-white">
+    <div className="w-full h-2/5  flex flex-col items-center lg:mb-5 md:pb-10 bg-white">
       <h1 className="font-gilroy-bold text-xl  p-1 ">
         Delivery Address <i className="fa-solid fa-location-dot"></i>
       </h1>
