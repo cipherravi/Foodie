@@ -29,15 +29,18 @@ const SignUp = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:3000/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          nset789ewy8w7: `${VITE_API_KEY}`,
-        },
-        credentials: "include", // 🔥 critical to include cookies in request
-        body: JSON.stringify({ mobileNo, password }),
-      });
+      const response = await fetch(
+        "https://foodie-backend-so1x.onrender.com/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            nset789ewy8w7: `${VITE_API_KEY}`,
+          },
+          credentials: "include", // 🔥 critical to include cookies in request
+          body: JSON.stringify({ mobileNo, password }),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         alert(data.message || "User registered successfully!");
