@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { ConnectDB, PORT } = require("./config");
 const apiRoutes = require("./routes");
+const authRoutes = require("./routes/authRouter");
 const { scheduleNextPing } = require("./utils/ping");
 const { allowedOrigins } = require("./utils/constant");
 const { StatusCodes } = require("http-status-codes");
@@ -32,7 +33,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.use("/api", API_authentication, apiRoutes);
-app.use("/auth", apiRoutes);
+app.use("/auth", authRoutes);
 app.get("/test", (req, res) => {
   res.send("hello from test");
 });
