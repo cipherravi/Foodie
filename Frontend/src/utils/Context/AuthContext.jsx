@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const checkAuth = async () => {
     try {
       const res = await fetch(
-        "https://foodie-backend-so1x.onrender.comauth/check-auth",
+        "https://foodie-backend-so1x.onrender.com/auth/check-auth",
         {
           credentials: "include", // Send cookies
         }
