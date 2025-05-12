@@ -8,33 +8,33 @@ const Profile = () => {
   const navigate = useNavigate();
 
   // 🔥 Fetch profile data
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await fetch(
-          "https://foodie-backend-so1x.onrender.com/api/profile",
-          {
-            method: "GET",
-            credentials: "include", // Send cookies
-            headers: {
-              "Content-Type": "application/json",
-              nset789ewy8w7: `${VITE_API_KEY}`,
-            },
-          }
-        );
+  //   useEffect(() => {
+  //     const fetchProfile = async () => {
+  //       try {
+  //         const res = await fetch(
+  //           "https://foodie-backend-so1x.onrender.com/api/profile",
+  //           {
+  //             method: "GET",
+  //             credentials: "include", // Send cookies
+  //             headers: {
+  //               "Content-Type": "application/json",
+  //               nset789ewy8w7: `${VITE_API_KEY}`,
+  //             },
+  //           }
+  //         );
 
-        if (!res.ok) throw new Error("Unauthorized or failed to fetch");
+  //         if (!res.ok) throw new Error("Unauthorized or failed to fetch");
 
-        const data = await res.json();
-        setUserData(data.user); // assuming { user: {...} } response
-      } catch (err) {
-        console.error("Error fetching profile:", err);
-        navigate("/login"); // fallback if auth fails
-      }
-    };
+  //         const data = await res.json();
+  //         setUserData(data.user); // assuming { user: {...} } response
+  //       } catch (err) {
+  //         console.error("Error fetching profile:", err);
+  //         navigate("/login"); // fallback if auth fails
+  //       }
+  //     };
 
-    if (isLoggedIn) fetchProfile();
-  }, [isLoggedIn, navigate]);
+  //     if (isLoggedIn) fetchProfile();
+  //   }, [isLoggedIn, navigate]);
 
   function logoutHandler() {
     if (isLoggedIn) {
