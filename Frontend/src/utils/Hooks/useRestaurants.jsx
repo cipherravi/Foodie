@@ -18,7 +18,7 @@ const useRestaurants = () => {
         sessionStorage.setItem("sessionId", json.sessionId);
 
         const apiDataPath =
-          json?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          json?.data?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle
             ?.restaurants;
         // const restaurantTitle = json?.data?.data?.cards[2]?.card?.card?.title;
 
