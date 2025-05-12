@@ -10,6 +10,10 @@ const { API_authentication } = require("./middlewares/");
 const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
 const app = express();
+
+// ✅ Trust proxy for secure cookies (necessary on platforms like Render)
+app.set("trust proxy", 1);
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,7 +26,7 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true,
+    credentials: true, // Allow cookies
   })
 );
 // Middleware: Rate limiter
@@ -36,6 +40,11 @@ app.use("/api", API_authentication, apiRoutes);
 app.use("/auth", authRoutes);
 app.get("/test", (req, res) => {
   res.send("hello from test");
+});
+app.get("/check-session", (req, res) => {
+  console.log("Cookies:", req.cookies);
+  console.log("Session:", req.session);
+  res.send("Check server logs");
 });
 
 async function pingServer(req, res) {

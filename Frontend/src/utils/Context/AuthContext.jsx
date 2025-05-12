@@ -4,6 +4,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null); // null = loading
+  console.log(isLoggedIn);
 
   const checkAuth = async () => {
     try {

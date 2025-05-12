@@ -4,7 +4,7 @@ const logoutUser = (req, res) => {
   res.clearCookie("authToken", {
     httpOnly: true,
     secure: true,
-    sameSite: "strict",
+    sameSite: "None",
   });
 
   res.status(StatusCodes.OK).json({

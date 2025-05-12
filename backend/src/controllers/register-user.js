@@ -22,7 +22,7 @@ async function registerUser(req, res) {
     res.cookie("authToken", token, {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: "None",
     });
 
     res.status(StatusCodes.CREATED).json({

@@ -23,7 +23,7 @@ async function loginUser(req, res) {
       res.cookie("authToken", token, {
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
+        sameSite: "None",
       });
 
       return res
