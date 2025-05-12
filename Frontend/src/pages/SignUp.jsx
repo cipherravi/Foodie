@@ -1,16 +1,63 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+const VITE_API_KEY = import.meta.env.VITE_API_KEY;
+import { useAuth } from "../utils/Context/AuthContext";
 
 const SignUp = () => {
-  const [value, setValue] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const newValue = e.target.value;
-    // Allow only digits (you can also allow empty value)
-    if (/^\d{0,10}$/.test(newValue)) {
-      setValue(newValue);
+
+    // Only allow 10-digit numbers that start with 6,7,8, or 9
+    if (/^[6-9]\d{0,9}$/.test(newValue) || newValue === "") {
+      setMobileNo(newValue);
     }
   };
+
+  async function registerHandler() {
+    try {
+      if (mobileNo.length !== 10) {
+        alert("Mobile number must be 10 digits.");
+        return;
+      }
+
+      if (password.length < 8) {
+        alert("Provide Right Credentials");
+        return;
+      }
+
+      const response = await fetch(
+        "https://foodie-backend-so1x.onrender.com/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            nset789ewy8w7: `${VITE_API_KEY}`,
+          },
+          body: JSON.stringify({ mobileNo, password }),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message || "User registered successfully!");
+        setMobileNo("");
+        setPassword("");
+        const token = "senftkejshfaufhu";
+        login(token);
+        navigate("/restaurants");
+      } else {
+        alert(data.message || "Registration failed!");
+      }
+    } catch (err) {
+      console.log("ERROR", err);
+      alert("An error occurred while registering.");
+    }
+  }
+
   return (
     <div>
       <div className="wrapper  w-screen h-[90vh]  flex justify-center items-center">
@@ -24,20 +71,25 @@ const SignUp = () => {
             required
             min="10"
             maxLength="10"
-            className="number-input  w-[60%] h-[11%] sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] sm:text-base mar-pad  p-3  outline-none rounded-md  text-sm"
-            value={value}
+            className="  w-[60%] h-[11%] sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] sm:text-base mar-pad  p-3  outline-none rounded-md  text-sm"
+            value={mobileNo}
             onChange={handleChange}
           />
           <input
             type="password"
             placeholder="Password"
             required
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             min="8"
-            maxLength="20"
-            className="password-input  w-[60%] h-[11%] sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] sm:text-base p-3  outline-none rounded-md  text-sm"
+            maxLength="30"
+            className=" w-[60%] h-[11%] sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%] sm:text-base p-3  outline-none rounded-md  text-sm"
           />
           <button
             type="submit"
+            onClick={registerHandler}
             className="submit  p-2 w-[55%] h-[15%] sm:w-[52%] sm:h-[13%] md:w-[55%] lg:w-[56%] xl:w-[50%] text-xs font-gilroy-medium bg-[#b80000] cursor-pointer text-white rounded-md border-none flex items-center justify-center"
           >
             <p> Create an account </p>

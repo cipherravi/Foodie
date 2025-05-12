@@ -1,13 +1,13 @@
 const { StatusCodes } = require("http-status-codes");
+const bcrypt = require("bcrypt");
 const User = require("../models/users");
 
 async function registerUser(req, res) {
-  const { mobileNo, password } = req.body;
-
   try {
-    console.log("Received from frontend:", mobileNo, password);
+    const { mobileNo, password } = req.body;
+    const passwordHash = await bcrypt.hash(password, 10);
 
-    const user = new User({ mobileNo, password });
+    const user = new User({ mobileNo, password: passwordHash });
 
     await user.save(); // Save first
     console.log("User saved successfully"); // Then log success

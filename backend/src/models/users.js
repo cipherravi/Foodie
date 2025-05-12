@@ -1,14 +1,53 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-  firstName: { type: String },
-  lastName: { type: String },
-  gender: { type: String },
-  age: { type: Number },
-  location: { type: String },
-  mobileNo: { type: String, required: true, unique: true },
-  emailId: { type: String },
-  password: { type: String, required: true },
-});
+const userSchema = new mongoose.Schema(
+  {
+    firstName: {
+      type: String,
+      set: (value) => value.replace(/\s+/g, " ").trim(),
+      minlength: 2,
+      maxlength: 50,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      minlength: 2,
+      maxlength: 50,
+    },
+    gender: {
+      type: String,
+      enum: ["Male", "Female", "Other"],
+    },
+    age: {
+      type: Number,
+      min: 1,
+      max: 120,
+    },
+    location: {
+      type: String,
+      trim: true,
+    },
+    mobileNo: {
+      type: String,
+      required: [true, "Mobile number is required"],
+      unique: true,
+      match: [/^[6-9]\d{9}$/, "Mobile number must start with 6, 7, 8, or 9"],
+    },
+    emailId: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      match: [/^\S+@\S+\.\S+$/, "Invalid email format"],
+      unique: true,
+      sparse: true, // prevents unique on null
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minlength: [8, "Password must be at least 8 characters"],
+    },
+  },
+  { timestamps: true }
+);
 
 module.exports = mongoose.model("Users", userSchema);

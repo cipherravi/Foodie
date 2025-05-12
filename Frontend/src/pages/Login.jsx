@@ -1,16 +1,61 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+const VITE_API_KEY = import.meta.env.VITE_API_KEY;
+import { useAuth } from "../utils/Context/AuthContext";
 
 function Login() {
-  const [value, setValue] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const newValue = e.target.value;
-    // Allow only digits (you can also allow empty value)
-    if (/^\d{0,10}$/.test(newValue)) {
-      setValue(newValue);
+
+    // Only allow 10-digit numbers that start with 6,7,8, or 9
+    if (/^[6-9]\d{0,9}$/.test(newValue) || newValue === "") {
+      setMobileNo(newValue);
     }
   };
+
+  async function loginHandler() {
+    try {
+      if (mobileNo.length !== 10) {
+        alert("Mobile number must be 10 digits.");
+        return;
+      }
+
+      if (password.length < 8) {
+        alert("Provide Right Credentials");
+        return;
+      }
+      const response = await fetch(
+        "https://foodie-backend-so1x.onrender.com/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            nset789ewy8w7: `${VITE_API_KEY}`,
+          },
+          body: JSON.stringify({ mobileNo, password }),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message || "Login successfully!");
+        setMobileNo("");
+        setPassword("");
+        const token = "senftkejshfaufhu";
+        login(token);
+        navigate("/restaurants");
+      } else {
+        alert(data.message || "Login failed!");
+      }
+    } catch (err) {
+      console.log("ERROR", err);
+      alert("An error occurred while Login.");
+    }
+  }
   return (
     <div>
       <div className="wrapper w-screen h-[90vh] flex justify-center items-center">
@@ -25,19 +70,24 @@ function Login() {
             min="10"
             maxLength="10"
             className="number-input  w-[60%] h-[11%]  sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%]     sm:text-base   p-3  outline-none rounded-md  text-sm"
-            value={value}
+            value={mobileNo}
             onChange={handleChange}
           />
           <input
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             required
             min="8"
-            maxLength="20"
+            maxLength="30"
             className="password-input  w-[60%] h-[11%]  sm:w-[52%] sm:h-[10%] md:w-[55%] lg:w-[56%] xl:w-[50%]     sm:text-base     p-3  outline-none rounded-md  text-sm"
           />
           <button
             type="submit"
+            onClick={loginHandler}
             className="submit w-[50%] h-[10%] py-3 sm:w-[45%] md:w-[40%] lg:w-[34%] xl:w-[30%]  text-sm font-gilroy-medium bg-[#b80000] cursor-pointer text-white rounded-md border-none flex items-center justify-center"
           >
             <p>Login</p>

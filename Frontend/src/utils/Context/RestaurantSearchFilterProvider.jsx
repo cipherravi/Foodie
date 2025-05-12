@@ -1,8 +1,6 @@
-import { useState, useEffect, createContext, useRef, useMemo } from "react";
+import { useState, useEffect, createContext, useMemo } from "react";
 import useRestaurants from "../Hooks/useRestaurants";
 import useRestaurantFilteredData from "../Hooks/useRestaurantFilteredData";
-
-import useNextRestaurants from "../Hooks/useNextRestaurants";
 
 // Create a context
 const RestaurantSearchFilter = createContext();

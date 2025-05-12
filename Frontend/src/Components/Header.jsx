@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { RestaurantSearchFilter } from "../utils/Context/RestaurantSearchFilterProvider.jsx";
 import { useContext, useState, useEffect, useRef } from "react";
+import { useAuth } from "../utils/Context/AuthContext.jsx";
 
 function Logo() {
   const { setSearchInput } = useContext(RestaurantSearchFilter);
@@ -21,8 +22,6 @@ function PhoneNav({ isOpen, setIsOpen, commonLi, searchInput, handleSearch }) {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
-  const { pathname } = useLocation();
 
   return (
     <div className="sm:hidden flex flex-row-reverse gap-4">
@@ -61,6 +60,8 @@ function PhoneNav({ isOpen, setIsOpen, commonLi, searchInput, handleSearch }) {
 }
 
 function NavLinks({ isOpen, navRef, commonLi, searchInput, handleSearch }) {
+  const { isLoggedIn } = useAuth();
+
   return (
     <>
       <div
@@ -89,15 +90,25 @@ function NavLinks({ isOpen, navRef, commonLi, searchInput, handleSearch }) {
               Help
             </li>
           </Link>
-
-          <Link to="login">
-            <li className={`${commonLi}`}>
-              <span>
-                <i className="fa-regular fa-user lg:text-lg"></i>
-              </span>
-              Sign In
-            </li>
-          </Link>
+          {isLoggedIn ? (
+            <Link to="profile">
+              <li className={`${commonLi}`}>
+                <span>
+                  <i className="fa-regular fa-user lg:text-lg"></i>
+                </span>
+                Profile
+              </li>
+            </Link>
+          ) : (
+            <Link to="login">
+              <li className={`${commonLi}`}>
+                <span>
+                  <i className="fa-regular fa-user lg:text-lg"></i>
+                </span>
+                Sign In
+              </li>
+            </Link>
+          )}
 
           <Link to="cart">
             <li className={`${commonLi}`}>
@@ -142,14 +153,25 @@ function NavLinks({ isOpen, navRef, commonLi, searchInput, handleSearch }) {
             Help
           </li>
         </Link>
-        <Link to="login">
-          <li className={commonLi}>
-            <span>
-              <i className="fa-regular fa-user lg:text-lg"></i>
-            </span>
-            Sign In
-          </li>
-        </Link>
+        {isLoggedIn ? (
+          <Link to="profile">
+            <li className={`${commonLi}`}>
+              <span>
+                <i className="fa-regular fa-user lg:text-lg"></i>
+              </span>
+              Profile
+            </li>
+          </Link>
+        ) : (
+          <Link to="login">
+            <li className={`${commonLi}`}>
+              <span>
+                <i className="fa-regular fa-user lg:text-lg"></i>
+              </span>
+              Sign In
+            </li>
+          </Link>
+        )}
         <Link to="cart">
           <li className={commonLi}>
             <span>

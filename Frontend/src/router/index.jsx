@@ -1,6 +1,7 @@
 import App from "../App.jsx";
 import { lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import ProtectedRoute from "../Components/ProtectedRoute.jsx";
 
 const Error = lazy(() => import("../pages/Error.jsx"));
 const Offers = lazy(() => import("../pages/Offers.jsx"));
@@ -12,6 +13,7 @@ const RestaurantMenu = lazy(() => import("../pages/RestaurantMenu.jsx"));
 
 import CardSection from "../Components/CardSection.jsx";
 import Test from "../Components/Test.jsx";
+import Profile from "../pages/Profile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignUp />,
+      },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "cart",
