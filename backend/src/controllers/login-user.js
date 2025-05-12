@@ -1,28 +1,43 @@
 const { StatusCodes } = require("http-status-codes");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("../models/users");
+const { JWT_KEY } = require("../config");
 
 async function loginUser(req, res) {
   try {
     const { mobileNo, password } = req.body;
 
     const user = await User.findOne({ mobileNo: mobileNo });
+
     if (!user) {
       throw new Error("Invalid User");
     }
     const isPasswordVaild = await bcrypt.compare(password, user.password);
 
     if (isPasswordVaild) {
-      return res.status(StatusCodes.OK).json({ message: "Login Succesfull" });
-    } else {
+      // Generate JWT Token
+      const token = jwt.sign({ id: user._id }, JWT_KEY);
+
+      // Send the token as a cookie
+      res.cookie("authToken", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+      });
+
       return res
         .status(StatusCodes.OK)
-        .json({ message: "Invalid Credentials" });
+        .json({ message: "Logged in succesfully!" });
+    } else {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: "Invalid credentials" });
     }
   } catch (error) {
     res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ message: "Invalid Credentials" });
+      .json({ message: "Error while Logging In" });
   }
 }
 

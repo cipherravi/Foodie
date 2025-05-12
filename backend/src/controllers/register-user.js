@@ -1,22 +1,35 @@
 const { StatusCodes } = require("http-status-codes");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("../models/users");
+const { JWT_KEY } = require("../config");
 
 async function registerUser(req, res) {
   try {
     const { mobileNo, password } = req.body;
+
+    //Hash the password
     const passwordHash = await bcrypt.hash(password, 10);
 
-    const user = new User({ mobileNo, password: passwordHash });
+    const newUser = new User({ mobileNo, password: passwordHash });
 
-    await user.save(); // Save first
-    console.log("User saved successfully"); // Then log success
+    //save new user
+    await newUser.save();
+
+    //Generate JWT token
+    const token = jwt.sign({ id: newUser._id }, JWT_KEY);
+    //Send the token as a cookie
+    res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+    });
 
     res.status(StatusCodes.CREATED).json({
-      message: "User Registered Successfully !!",
+      message: "User signed up successfully !!",
     });
   } catch (err) {
-    console.error("Error during user.save():", err);
+    console.error("Error during newUser.save():", err);
 
     if (err.code === 11000) {
       return res.status(StatusCodes.CONFLICT).json({
@@ -25,7 +38,7 @@ async function registerUser(req, res) {
     }
 
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: "Failed to Register User, Try again !!",
+      message: "Failed to register user, Try again !!",
     });
   }
 }

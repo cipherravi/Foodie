@@ -1,7 +1,8 @@
 import App from "../App.jsx";
 import { lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import ProtectedRoute from "../Components/ProtectedRoute.jsx";
+import ProtectedRoute from "../utils/ProtectedRoute.jsx";
+import PublicRoute from "../utils/PublicRoute.jsx";
 
 const Error = lazy(() => import("../pages/Error.jsx"));
 const Offers = lazy(() => import("../pages/Offers.jsx"));
@@ -40,11 +41,19 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <Login />,
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
       },
       {
         path: "signup",
-        element: <SignUp />,
+        element: (
+          <PublicRoute>
+            <SignUp />
+          </PublicRoute>
+        ),
       },
       {
         path: "profile",

@@ -3,6 +3,9 @@ const restaurantMenu = require("./restaurantMenu-controller");
 const test = require("./test-controller");
 const registerUser = require("./register-user");
 const loginUser = require("./login-user");
+const logoutUser = require("./logout-user");
+const userProfile = require("./user-profile");
+const checkAuth = require("./check-auth");
 
 module.exports = {
   restaurants,
@@ -10,4 +13,7 @@ module.exports = {
   test,
   registerUser,
   loginUser,
+  logoutUser,
+  userProfile,
+  checkAuth,
 };

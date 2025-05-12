@@ -6,11 +6,12 @@ const { scheduleNextPing } = require("./utils/ping");
 const { allowedOrigins } = require("./utils/constant");
 const { StatusCodes } = require("http-status-codes");
 const { API_authentication } = require("./middlewares/");
+const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -20,6 +21,7 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
+    credentials: true,
   })
 );
 // Middleware: Rate limiter
