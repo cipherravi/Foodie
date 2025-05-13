@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/Context/AuthContext";
+import EditModal from "../Components/EditModal";
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
 
 const Profile = () => {
@@ -8,6 +9,8 @@ const Profile = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [selectedTab, setSelectedTab] = useState("Orders");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
 
   // 🔥 Fetch profile data
   useEffect(() => {
@@ -70,7 +73,10 @@ const Profile = () => {
               </div>
             </div>
             <div>
-              <button className="border border-white uppercase absolute top-0 right-0 lg:top-4 text-xs w-24 font-gilroy-medium hover:bg-white hover:text-[#36708D] text-center h-6 md:w-28 md:h-7 lg:w-36 lg:h-10">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="border border-white uppercase absolute top-0 right-0 lg:top-4 text-xs w-24 font-gilroy-medium hover:bg-white hover:text-[#36708D] text-center h-6 md:w-28 md:h-7 lg:w-36 lg:h-10"
+              >
                 Edit Profile
               </button>
             </div>
@@ -146,6 +152,79 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <EditModal isOpen={isModalOpen}>
+        <div className="w-full max-w-md p-4 flex flex-col gap-4">
+          <h2 className="text-lg font-semibold text-gray-800">Edit Profile</h2>
+
+          {/* Name Fields */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <input
+              type="text"
+              placeholder="First Name"
+              className=" w-full flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              className="w-full flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Gender and Age */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <select
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
+              className="w-full sm:w-1/2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+            <input
+              type="number"
+              placeholder="Age"
+              className="w-full sm:w-1/2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Contact Info */}
+          <input
+            type="tel"
+            placeholder="New Mobile No."
+            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="email"
+            placeholder="New Email ID"
+            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="password"
+            placeholder="New Password"
+            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          {/* Buttons */}
+          <div className="flex justify-end gap-3 pt-4">
+            <button
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+              onClick={() => setIsModalOpen(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              onClick={() => {
+                // Save logic here
+              }}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </EditModal>
     </div>
   );
 };
