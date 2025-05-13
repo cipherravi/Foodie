@@ -23,10 +23,6 @@ const userSchema = new mongoose.Schema(
       min: 1,
       max: 120,
     },
-    location: {
-      type: String,
-      trim: true,
-    },
     mobileNo: {
       type: String,
       required: [true, "Mobile number is required"],
@@ -45,6 +41,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
       minlength: [8, "Password must be at least 8 characters"],
+    },
+    address: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
+      default: null,
+    },
+    cart: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
+      default: null,
     },
   },
   { timestamps: true }
