@@ -37,7 +37,7 @@ function Help() {
                     <li
                       key={item.label}
                       onClick={() => setSelectedTab(item.label)}
-                      className={`flex gap-3 items-center pl-3 py-3 cursor-pointer rounded-md ${
+                      className={`flex gap-3 items-center pl-3 py-3 cursor-pointer  ${
                         selectedTab === item.label ? "bg-white font-bold" : ""
                       }`}
                     >
