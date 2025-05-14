@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const AuthContext = createContext();
 
@@ -7,12 +8,9 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const res = await fetch(
-        "https://foodie-backend-so1x.onrender.com/auth/check-auth",
-        {
-          credentials: "include", // Send cookies
-        }
-      );
+      const res = await fetch(`${VITE_API_BASE_URL}/auth/check-auth`, {
+        credentials: "include", // Send cookies
+      });
 
       setIsLoggedIn(res?.ok || false);
     } catch (err) {
@@ -22,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch("https://foodie-backend-so1x.onrender.com/auth/logout", {
+      await fetch(`${VITE_API_BASE_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

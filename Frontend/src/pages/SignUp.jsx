@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
+const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import { useAuth } from "../utils/Context/AuthContext";
 
 const SignUp = () => {
@@ -25,22 +27,19 @@ const SignUp = () => {
       }
 
       if (password.length < 8) {
-        alert("Provide Right Credentials");
+        alert("Password must be 8 characters");
         return;
       }
 
-      const response = await fetch(
-        "https://foodie-backend-so1x.onrender.com/auth/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            nset789ewy8w7: `${VITE_API_KEY}`,
-          },
-          credentials: "include", // 🔥 critical to include cookies in request
-          body: JSON.stringify({ mobileNo, password }),
-        }
-      );
+      const response = await fetch(`${VITE_API_BASE_URL}/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          nset789ewy8w7: `${VITE_API_KEY}`,
+        },
+        credentials: "include", // 🔥 critical to include cookies in request
+        body: JSON.stringify({ mobileNo, password }),
+      });
       const data = await response.json();
       if (response.ok) {
         alert(data.message || "User registered successfully!");

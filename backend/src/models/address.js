@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema({
-  street: String,
+  address: String,
   landmark: String,
-  houseNo: String,
+  houseFlatNo: String,
   city: String,
   state: String,
   zip: String,
+  lat: String,
+  lng: String,
+  addressType: { type: String, enum: ["Home", "Work", "Other"] },
 });
 
 module.exports = mongoose.model("Address", addressSchema);

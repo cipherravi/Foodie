@@ -12,6 +12,7 @@ const userAuth = async (req, res, next) => {
     }
     const decoded = await jwt.verify(token, JWT_KEY);
     req.user = decoded;
+
     next();
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json({

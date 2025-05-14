@@ -6,6 +6,7 @@ const loginUser = require("./login-user");
 const logoutUser = require("./logout-user");
 const userProfile = require("./user-profile");
 const checkAuth = require("./check-auth");
+const saveUserAddress = require("./save-address");
 
 module.exports = {
   restaurants,
@@ -16,4 +17,5 @@ module.exports = {
   logoutUser,
   userProfile,
   checkAuth,
+  saveUserAddress,
 };

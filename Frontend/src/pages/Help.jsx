@@ -24,7 +24,7 @@ function Help() {
         <div className="w-full h-[80%] min-h-[200px] bg-white overflow-auto px-3 pt-5 sm:px-5 lg:px-14 lg:pt-8 lg:pb-0">
           {/* Main content goes here */}
           <div className="w-full h-full  flex justify-start gap-3 lg:gap-10">
-            <div className=" w-[40%]  h-full  flex justify-end bg-[#EDF1F6] sm:w-[30%] md:w-[25%] ">
+            <div className=" w-[40%]  h-[80vh]  flex justify-end bg-[#EDF1F6] sm:w-[30%] md:w-[25%] ">
               <div className="w-[90%] h-[90%] flex flex-col items-center text-xs sm:text-sm lg:text-base pt-3 sm:pt-6 lg:pt-10 font-proxima-nova-regular">
                 <ul className="w-full h-full flex flex-col gap-10">
                   {[

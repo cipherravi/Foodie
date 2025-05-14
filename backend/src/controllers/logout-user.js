@@ -3,7 +3,7 @@ const logoutUser = (req, res) => {
   //Clear the JWT cookie
   res.clearCookie("authToken", {
     httpOnly: true,
-    secure: true,
+    secure: false,
     sameSite: "None",
   });
 

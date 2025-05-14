@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/Context/AuthContext";
 import EditModal from "../Components/EditModal";
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
+const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Profile = () => {
   const { isLoggedIn, logout } = useAuth();
@@ -11,22 +12,19 @@ const Profile = () => {
   const [selectedTab, setSelectedTab] = useState("Orders");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-
+  console.log(userData);
   // 🔥 Fetch profile data
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch(
-          "https://foodie-backend-so1x.onrender.com/api/profile",
-          {
-            method: "GET",
-            credentials: "include", // Send cookies
-            headers: {
-              "Content-Type": "application/json",
-              nset789ewy8w7: `${VITE_API_KEY}`,
-            },
-          }
-        );
+        const res = await fetch(`${VITE_API_BASE_URL}/api/profile`, {
+          method: "GET",
+          credentials: "include", // Send cookies
+          headers: {
+            "Content-Type": "application/json",
+            nset789ewy8w7: `${VITE_API_KEY}`,
+          },
+        });
 
         if (!res.ok) throw new Error("Unauthorized or failed to fetch");
 
@@ -62,14 +60,21 @@ const Profile = () => {
     >
       <div className="min-w-[90%] h-full flex flex-col">
         <div className="w-full h-[20%] min-h-[120px] pt-10 text-white">
-          <div className="flex overflow-hidden relative lg:pt-3">
+          <div className="flex overflow-hidden min-h-10 lg:min-h-20 relative lg:pt-3">
             <div className="flex-1 min-w-0">
               <h1 className="font-gilroy-bold text-xl lg:text-4xl md:text-2xl truncate">
                 {userData?.firstName} {userData?.lastName}
               </h1>
-              <div className="flex gap-1 text-xs font-gilroy-medium sm:text-sm lg:text-base">
-                <h2>{userData?.mobileNo}</h2> <span>.</span>
-                <div>{userData?.emailId}</div>
+              <div className="flex gap-1 text-xs font-gilroy-medium sm:text-sm lg:text-base ">
+                <h2>{userData?.mobileNo}</h2>{" "}
+                {userData?.emailId ? (
+                  <>
+                    <span>.</span>
+                    <div>{userData?.emailId}</div>
+                  </>
+                ) : (
+                  <div>{userData?.emailId}</div>
+                )}
               </div>
             </div>
             <div>
@@ -85,7 +90,7 @@ const Profile = () => {
         <div className="w-full h-[80%] min-h-[200px] bg-white overflow-auto px-3 pt-5 sm:px-5 lg:px-14 lg:pt-8 lg:pb-0">
           {/* Main content goes here */}
           <div className="w-full h-full  flex justify-start gap-3 lg:gap-10">
-            <div className=" w-[40%]  h-full  flex justify-end bg-[#EDF1F6] sm:w-[30%] md:w-[25%] ">
+            <div className=" w-[40%]  h-[80vh]  flex justify-end bg-[#EDF1F6] sm:w-[30%] md:w-[25%] ">
               <div className="w-[90%] h-[90%] flex flex-col items-center text-xs sm:text-sm lg:text-base pt-3 sm:pt-6 lg:pt-10 font-proxima-nova-regular">
                 <ul className="w-full h-full flex flex-col gap-10">
                   {[

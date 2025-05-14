@@ -52,6 +52,26 @@ const userSchema = new mongoose.Schema(
       ref: "Cart",
       default: null,
     },
+    favourites: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Favourites",
+      default: null,
+    },
+    paymentInfo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "PaymentInfo",
+      default: null,
+    },
+    orders: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Orders",
+      default: null,
+    },
+    recentSearches: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "RecentSearches",
+      default: null,
+    },
   },
   { timestamps: true }
 );
