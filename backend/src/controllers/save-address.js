@@ -7,7 +7,7 @@ const saveUserAddress = async (req, res) => {
     const userId = req.user.id;
 
     const { address, houseFlatNo, landmark, addressType } = req.body;
-    // 682226af73c1a521dda910db
+
     const newAddress = new Address({
       address,
       houseFlatNo,
@@ -15,9 +15,6 @@ const saveUserAddress = async (req, res) => {
       addressType,
     });
     await newAddress.save();
-
-    console.log(newAddress._id);
-    // Add address id to user
 
     await User.findByIdAndUpdate(userId, {
       address: newAddress._id,
