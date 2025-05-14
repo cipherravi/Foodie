@@ -10,8 +10,8 @@ const DeliveryAddress = () => {
   const [landmark, setLandmark] = useState("");
   const [houseFlatNo, setHouseFlatNo] = useState("");
   const [addressType, setAddressType] = useState("Home");
-  const { userAddress } = useUserInfo();
-  console.log(userAddress);
+  const { userAddress, isLoading } = useUserInfo();
+
   const addressTypes = ["Home", "Work", "Other"];
 
   const { checkAuth } = useAuth();
@@ -45,7 +45,7 @@ const DeliveryAddress = () => {
     }
   };
 
-  return userAddress === null ? (
+  return isLoading ? (
     <div
       className="flex justify-center items-center "
       style={{ height: "calc(100vh - 80px)" }}

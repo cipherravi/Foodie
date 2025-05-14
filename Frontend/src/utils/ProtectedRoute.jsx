@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
+
   if (isLoggedIn === null) {
     return <></>; // Optional: loading spinner
   }

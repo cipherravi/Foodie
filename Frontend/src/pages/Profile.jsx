@@ -12,8 +12,8 @@ const Profile = () => {
   const [selectedTab, setSelectedTab] = useState("Orders");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-  console.log(userData);
-  // 🔥 Fetch profile data
+
+  //  Fetch profile data
   useEffect(() => {
     const fetchProfile = async () => {
       try {

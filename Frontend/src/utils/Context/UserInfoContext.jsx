@@ -7,7 +7,7 @@ const UserInfoContext = createContext();
 const UserInfoProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const userAddress = userData?.address || null;
-  console.log(userData);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchProfile = async () => {
     try {
@@ -27,6 +27,8 @@ const UserInfoProvider = ({ children }) => {
       setUserData(data.user); // assuming { user: {...} } response
     } catch (err) {
       console.error("Error fetching profile:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -37,6 +39,7 @@ const UserInfoProvider = ({ children }) => {
       value={{
         userData,
         userAddress,
+        isLoading,
       }}
     >
       {children}
