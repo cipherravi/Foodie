@@ -58,8 +58,8 @@ const DeliveryAddress = () => {
         Delivery Address <i className="fa-solid fa-location-dot"></i>
       </h1>
       {userAddress ? (
-        <div className="w-full h-full lg:ml-5 p-4 ">
-          <div className="w-full md:w-1/2 h-full border p-2 flex gap-2">
+        <div className="w-full h-[90%] border-2 lg:mx-5  p-4 flex justify-start items-start">
+          <div className="w-full md:w-1/2 lg:h-1/2 border p-2 flex gap-2">
             <i className="fa-solid fa-house text-base lg:text-2xl"></i>
             <div className="pl-4 pt-1">
               <div className="flex items-baseline gap-3">
