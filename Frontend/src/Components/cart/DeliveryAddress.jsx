@@ -2,6 +2,7 @@ import { useState } from "react";
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
 import { useAuth } from "../../utils/Context/AuthContext";
 import { useUserInfo } from "../../utils/Context/UserInfoContext";
+import toast from "react-hot-toast";
 const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const DeliveryAddress = () => {
@@ -30,18 +31,18 @@ const DeliveryAddress = () => {
 
       const data = response.json();
       if (response.ok) {
-        alert(data.message || "Address saved");
+        toast.success(data.message || "Address saved successfully");
         setAddress("");
         setLandmark("");
         setHouseFlatNo("");
         setAddressType("Home");
         await checkAuth();
       } else {
-        alert(data.message || "Saving Address failed!");
+        toast.error(data.message || "Saving Address failed!");
       }
     } catch (error) {
       console.log("ERROR", error);
-      alert("An error occurred while Saving Address.");
+      toast.error("An error occurred while Saving Address.");
     }
   };
 

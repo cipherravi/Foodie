@@ -8,7 +8,7 @@ const UserInfoProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const userAddress = userData?.address || null;
   const [isLoading, setIsLoading] = useState(true);
-
+  console.log(userData);
   const fetchProfile = async () => {
     try {
       const res = await fetch(`${VITE_API_BASE_URL}/api/profile`, {
@@ -31,6 +31,7 @@ const UserInfoProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     fetchProfile();
   }, []);

@@ -2,6 +2,7 @@ import { url } from "../utils/Constant";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, removeItem } from "../utils/Store/CartSlice";
+import toast from "react-hot-toast";
 
 function RestaurantMenuCard(itemInfo) {
   const {
@@ -30,6 +31,9 @@ function RestaurantMenuCard(itemInfo) {
 
   function handleAddToCart() {
     dispatch(addItem(item));
+    toast.success("Item added to cart", {
+      duration: 1000,
+    });
   }
 
   function handleRemoveItemFromCart(id) {

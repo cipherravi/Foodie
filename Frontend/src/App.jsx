@@ -2,10 +2,11 @@
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
-
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <>
+      <Toaster position="top-right" />
       <Header />
       <Outlet />
       {/* <Footer /> */}

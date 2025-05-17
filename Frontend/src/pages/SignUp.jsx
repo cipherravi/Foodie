@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
 const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 import { useAuth } from "../utils/Context/AuthContext";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const [mobileNo, setMobileNo] = useState("");
@@ -22,12 +22,12 @@ const SignUp = () => {
   async function registerHandler() {
     try {
       if (mobileNo.length !== 10) {
-        alert("Mobile number must be 10 digits.");
+        toast.error("Mobile number must be 10 digits.");
         return;
       }
 
       if (password.length < 8) {
-        alert("Password must be 8 characters");
+        toast.error("Password must be 8 characters");
         return;
       }
 
@@ -42,16 +42,15 @@ const SignUp = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        alert(data.message || "User registered successfully!");
+        toast.success(data.message || "User registered successfully!");
         setMobileNo("");
         setPassword("");
         await checkAuth(); // update context state
       } else {
-        alert(data.message || "Registration failed!");
+        toast.error(data.message || "Registration failed!");
       }
     } catch (err) {
-      console.log("ERROR", err);
-      alert("An error occurred while registering.");
+      toast.error("An error occurred while registering.");
     }
   }
 

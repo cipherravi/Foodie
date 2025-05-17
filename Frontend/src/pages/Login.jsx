@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
 const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 import { useAuth } from "../utils/Context/AuthContext";
+import toast from "react-hot-toast";
 
 function Login() {
   const [mobileNo, setMobileNo] = useState("");
@@ -22,12 +23,12 @@ function Login() {
   async function loginHandler() {
     try {
       if (mobileNo.length !== 10) {
-        alert("Mobile number must be 10 digits.");
+        toast.error("Mobile number must be 10 digits.");
         return;
       }
 
       if (password.length < 8) {
-        alert("Provide Right Credentials");
+        toast.error("Password must be atleast 8 digit");
         return;
       }
       const response = await fetch(`${VITE_API_BASE_URL}/auth/login`, {
@@ -41,16 +42,15 @@ function Login() {
       });
       const data = await response.json();
       if (response.ok) {
-        alert(data.message || "Login successfully!");
+        toast.success(data.message || "Login successfully!");
         setMobileNo("");
         setPassword("");
         await checkAuth(); // update context state
       } else {
-        alert(data.message || "Login failed!");
+        toast.error(data.message || "Login failed!");
       }
     } catch (err) {
-      console.log("ERROR", err);
-      alert("An error occurred while Login.");
+      toast.error("An error occurred while Login.");
     }
   }
   return (
